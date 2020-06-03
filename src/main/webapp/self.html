@@ -1,0 +1,511 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <title>个人主页</title>
+<link  href="css/css.css" rel="stylesheet" type="text/css">
+<link  href="css/self.css" rel="stylesheet" type="text/css">
+<script src="js/jquery.js"></script>
+<script src="js/js.js"></script>
+    <script src="js/self.js"></script>
+    <script src="js/myJs.js"></script>
+</head>
+
+<body>
+<header class="clear">
+<img src="img/logo.jpg" >
+<div class="logo">
+    <h1>读客图书</h1>
+    <div class="clear"></div>
+    <p>想看既看，想听既听的阅读</p>
+</div>
+    <div class="search left">
+        <input id="keyword" name="keyword" type="text" value="" placeholder="请输入书名或作者名称">
+        <input id="search" type="submit" value="搜索">
+    </div>
+    <div class="reg" id="loginStatus">
+        <!-- 登录判断 -->
+        <script src="js/loginSession.js"></script>
+        <script>
+            var student = getStudent();
+        </script>
+    </div>
+</header>
+<!--头部结束-->
+
+<nav class="clear">
+    <ul class="nav_1 clear">
+        <div id="banner" class="active"></div>
+        <li><a id="index" href="index.html">首页</a></li>
+        <li><a href="index_article.html">文学</a>
+            <ul id="articleList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_sociology.html">社会学</a>
+            <ul id="sociologyList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_psychology.html">心理学</a>
+            <ul id="psychologyList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_ecnomics.html">经济学</a>
+            <ul id="economicsList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_science.html">自然科学</a>
+            <ul id="scienceList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_history.html">历史</a>
+            <ul id="historyList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_other.html">其他</a>
+            <ul id="otherList" class="clear">
+
+            </ul>
+        </li>
+    </ul>
+</nav><!--导航结束-->
+
+<div class="box">
+   <div class="box_1 clear">
+    <div class="z_left">
+      <div class="list_1">
+          <div class="portrait">
+               <p class="por_modify">
+                  <img src="img/avatar.jpg" class="myPhoto" height="100px">
+                  <a href="javascript:;">修改图像</a>
+               </p>
+              <p class="myName">雪剑无影</p>
+              <p  class="border_b"></p>
+              <p><span>积分</span> <b class="myMoney">498</b></p>
+          </div>
+      </div><!--头像部分-->
+      <ul class="list_1">
+        <li class="active"><a href="#"><span class="icon"></span>个人资料修改</a></li>
+        <li><div  class="clear"><a href="#" class="left" onclick="showMyMessage()"><span class="icon"></span>我的评论</a></div></li>
+        <li><a href="javascript:;" onclick="listByOwner(stu_id)"><span class="icon"></span>我的上传记录</a></li>
+        <li><a href="javascript:;"><span class="icon"></span>上传电子书</a></li>
+      </ul>
+    </div><!--左边-->
+   
+   <div class="center_r">
+    <div class="c_1" style="display:block;">
+        <p class="tit">个人资料修改</p>
+        <p class="border_b"></p>
+       <p class="ul">
+          <a href="#" class="active">个人资料</a>
+          |
+          <a href="#">修改头像</a>
+          |
+          <a href="#">修改用户名</a>
+          |
+          <a href="#">修改邮箱</a>
+          |
+          <a href="#">修改密码</a>
+        </p>
+        <ul class="tab menu_1"  style="display:block;">
+            <li class="h_portrait"> <p class="por_modify"><img src="img/avatar.jpg" class="myPhoto" height="130"><a href="javascript:;">修改图像</a></p></li>
+            <li><span>用户名</span>：<b class="myName"></b><a href="javascript:;" title="修改用户名"><img src="img/modif.png" class="u_name"></a></li>
+            <li><span>邮 &nbsp; 箱</span>：<b class="myEmail"></b><a href="javascript:;" title="修改邮箱"><img src="img/modif.png" class="u_email"></a></li>
+        </ul>
+        <div class="tab menu_2">
+          <img src="img/avatar.jpg" class="myPhoto" height="130">
+          <form id="up_pro" enctype="multipart/form-data">
+          <p><input type="file" name="myPhotofile" class="text" id="myPhotoFormData"><i class="none">您没有上传文件</i></p>
+          <p><input type="button" class="submit" name="up_pro"  value="上传" id="uploadMyPhoto"></p>
+          </form>
+       </div>
+       <div class="tab menu_3">
+         <form   id="user_name">  
+          <p><span>用户名：</span> <input type="text" name="name" value="" class="text_1" placeholder="default"   autocomplete="off" id="newName"> <em>*</em><i>请输入用户名</i></p>
+          <p><button class="submit" id="updateName">确认修改</button></p>
+          </form>
+       </div>
+       <div class="tab menu_3" >
+         <form  id="user_email">  
+          <p><span>邮 &nbsp; 箱：</span> <input type="text" name="email" value="" class="text_2"  autocomplete="off" id="newEmail"> <em>*</em><i>请输入正确的邮箱</i></p>
+             <p><button class="submit" id="updateEmail">确认修改</button></p>
+          </form>
+       </div>
+       <div class="tab menu_3">
+         <form  id="user_pass">  
+          <p><span>当前密码：</span> <input type="text" name="old_pwd" value="" class="text_3"   autocomplete="off" id="oldPassword"> <em>*</em><i>请输入当前密码</i></p>
+          <p><span>&nbsp;新 密 码：</span> <input type="text" name="new_pwd" value="" class="text_3"   autocomplete="off" id="newPassword1"> <em>*</em><i>密码6---9个字符，下划线英文数字组合</i></p>
+          <p><span>确认密码：</span> <input type="text" name="new_pwd2" value="" class="text_3"   autocomplete="off" id="newPassword2"> <em>*</em><i>两次密码不一致</i></p>
+             <p><button class="submit" style="margin-left:77px" id="updatePassword">确认修改</button></p>
+          </form>
+       </div>
+    </div><!--个人资料修改-->
+    
+    <div class="c_2">
+       <p class="tit">我的评论</p>
+       <p class="border_b"></p>
+       <ul class="list li" id="messageList">
+         <li>
+            <p class='tit'><time>2015-04-17</time>在《<b>大国崛起</b>》<span><a href='javascript:;'>删除</a></span></p>
+            <p class='con'>恭喜！您已经成功开通了博客。您可以删除或编辑此博文，开始您的博客之旅</p>
+         </li>
+       </ul><!--一页显示10条-->
+     </div><!--我的消息-->
+     
+    <div class="c_3">
+        <p class="tit">我的上传记录</p>
+        <p class="border_b"></p>
+        <ul class="list li" id="listByOwner">
+            <li><span class="icon_span pos_book"></span><a href="javascript:;">黑色的办公室出租H5响应式网站模板免费下载</a>
+            <span class="right"><time>2012-04-04</time></span></li>
+        </ul>
+    </div><!--我的收藏-->
+    
+<!--我的上传-->
+
+    <div class="c_4">
+        <p class="tit">上传电子书</p>
+        <p class="border_b"></p>
+        <form class="up_file"  enctype="multipart/form-data">
+         <input type="text" class="up_text">
+         <input type="file"  class="up_text2" name="text1" id="bookFile">
+        </form> <!--点击上传文件-->
+       <div class="banqu">
+            我们支持text,pdf,word等文件格式，文件≤200M，请上传合格文档。
+           <p class="red"> 如上传盗版内容，将会导致下架、封号、索赔，甚至被追究刑事责任。</p>
+       </div> 
+       <div class="up_tit">
+        <div class="up_1 clear">
+            <b class="blur">上传文件名称：</b> 
+            <span class="input left"></span><!--上传文件名称-->
+             <p class="right">
+                <span class="icon up"></span>
+                <span class="left f_s_12">正在上传(0%)</span>
+                <span class="icon del"></span>
+            </p>
+       </div><!--上传文件信息--> 
+       <div class="up_2">
+             <span></span>
+             <span></span>
+             <p class="bg">
+                <b></b>
+             </p>
+       </div><!--进度条-->
+     </div><!--文件上传-->
+     <form  class="up_file2" enctype="multipart/form-data" id="uploadBook">
+           <input  type="hidden" value="" name="up_temp" class="up_temp"><!--上传的文件名称-->
+         <p><label>图书名称：</label><input type="text" value="" name="book_name" class="up_input_tit">
+         <em>*</em><i>图书名2----20个字,不包含特殊字符</i>
+         </p>
+         <div class="clear p_t"><label class="left">设置封面：</label>
+               <div class="up_fm">
+               <span class="icon fm_icon"></span>
+               <img src="img/album_100.jpg"  class="fm_img"/>
+               <span class="icon fm_colse"></span>
+               </div>
+         </div><!--设置封面-->
+         <div class="up_img">
+              <p  class="icon up_img1">上传封面</p>
+              <input type="file" name="bookCover" class="up_img2"><i>文件大小<3M </i><!--当改变时，上传图片，ajax提交返回图片地址-->
+          </div>
+
+         <p><label>图书作者：</label><input type="text" value="" name="book_author" class="up_input_tit"></p>
+
+         <p><label> 出版社： </label><input type="text" value="" name="book_pub" class="up_input_tit"></p>
+          
+         <p><label  style="vertical-align:top">图书描述：</label><textarea name="book_description" class="up_area"></textarea>
+             <br/><i style="margin-left:70px;">图书描述10----200个字</i>
+         </p>
+         <p><label  style="vertical-align:top">图书类别：</label>
+         <select onchange="getChildType(value)">
+             <option value ="1">文学</option>
+             <option value ="2">社会学</option>
+             <option value="3">心理学</option>
+             <option value="4">经济学</option>
+             <option value="5">自然科学</option>
+             <option value="6">历史</option>
+             <option value="7">其他</option>
+         </select>
+             <select id="childType" onchange="thisTypeId = value">
+                 <option value ="7">请选择上级分类</option>
+             </select>
+         </p>
+
+         <p><label>图书定价：</label><input type="text" value="" name="price" class="up_input_tit"></p>
+         
+         <p style="margin-left:70px; padding-top:20px"><input type="button" value="上传" class="submit" id="submitUpload"></p>
+     </form><!--文件信息-->
+   </div><!--上传普通文档 -->
+
+   <div class="up_load">
+      <img src="img/load.gif">
+   </div><!--上传文件或头像的load-->
+   
+   </div><!--右边-->
+ </div>
+</div><!--内容区结束-->
+
+<script>
+    //获取session中的用户，填在页面上
+    var stu_id = 0;
+    function getMyInformation() {
+        $.ajax({
+            type:"get",
+            url:"manage/student/getStudent",
+            data:{
+                stu_id:student.stu_id
+            },
+            dataType:"json",
+            async: false,
+            success:function (response) {
+                var data = response.data;
+                stu_id = data.stu_id;
+                $(".myName").html(data.stu_name);
+                $(".myPhoto").attr("src",data.photo);
+                $(".myMoney").html(data.stu_money);
+                $(".myEmail").html(data.stu_email);
+                $("#newName").attr("placeholder",data.stu_name);
+            }
+        });
+    }
+    getMyInformation();
+
+    //更新头像
+    $("#uploadMyPhoto").click(function () {
+        var formData = new FormData();
+        var file = $("#myPhotoFormData").get(0).files[0];
+        formData.append('myPhotofile',file);
+        $.ajax({
+            type:"post",
+            url:"manage/student/updatePhoto?stu_id=" + stu_id,
+            data:formData,
+            dataType:"json",
+            cache:false,
+            processData:false,
+            contentType:false,
+            success:function (response) {
+                alert(response.msg);
+            }
+        });
+    });
+
+    //更新用户名
+    $("#updateName").click(function () {
+        var newName = $("#newName").val();
+        $.ajax({
+            type:"post",
+            url:"manage/student/updateName",
+            data:{
+                stu_name : newName,
+                stu_id : stu_id
+            },
+            dataType:"json",
+            success:function (response) {
+                alert(response.msg);
+            }
+        });
+    });
+
+    //更新邮箱
+    $("#updateEmail").click(function () {
+        var newEmail = $("#newEmail").val();
+        var regEmail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+        if (!regEmail.test(newEmail)){
+            alert("邮箱格式不正确！");
+            $("#newEmail").empty();
+            return;
+        }
+        $.ajax({
+            type:"post",
+            url:"manage/student/updateEmail",
+            data:{
+                stu_email : newEmail,
+                stu_id : stu_id
+            },
+            dataType:"json",
+            success:function (response) {
+                alert(response.msg);
+            }
+        });
+    });
+
+    //更新密码
+    $("#updatePassword").click(function () {
+        var oldPassword = $("#oldPassword").val();
+        var regPassword = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+        var newPassword;
+        if ($("#newPassword1").val() != $("#newPassword2").val()){
+            alert("两次新密码输入不一致，请重新输入");
+            return
+        } else {
+            newPassword = $("#newPassword2").val();
+            if (!regPassword.test(newPassword)){
+                alert("密码格式不正确，密码应至少包含数字和字母，长度在6-20位");
+                return;
+            }
+        }
+        $.ajax({
+            type:"post",
+            url:"manage/student/updatePassword",
+            data:{
+                oldPassword:oldPassword,
+                stu_pwd : newPassword,
+                stu_id : stu_id
+            },
+            dataType:"json",
+            success:function (response) {
+                alert(response.msg);
+            }
+        });
+    });
+
+
+    //类别二级搜索
+    var thisTypeId = 1;
+    function getChildType(typeId) {
+        thisTypeId = typeId;
+        $.ajax({
+            type:"get",
+            url:"manage/type/selectChild",
+            data:{
+                num:typeId
+            },
+            dataType:"json",
+            success:function (response) {
+                var data = response.data;
+                var typeList = $("#childType");
+                typeList.empty();
+                for (var i = 0;i < data.length;i ++){
+                    typeList.append("<option value ='"+ data[i].type_id +"'>"+ data[i].type_name +"</option>");
+                }
+            }
+        });
+    }
+
+    //上传图书
+    $("#submitUpload").click(function () {
+        var form = document.querySelector("#uploadBook");
+        var formData = new FormData(form);
+        formData.append("book_type_id",thisTypeId);
+        formData.append("book_owner_id",stu_id);
+        $.ajax({
+            type:"post",
+            url:"manage/book/uploadBook",
+            data:formData,
+            dataType:"json",
+            cache:false,
+            processData:false,
+            contentType:false,
+            success:function (response) {
+                alert(response.msg);
+            }
+        });
+    });
+
+    //显示我的上传
+    function listByOwner(stu_id) {
+        $.ajax({
+            type:"get",
+            url:"manage/book/listByOwner",
+            data:{
+                owner:stu_id,
+                pageSize:10
+            },
+            dataType:"json",
+            success:function (response) {
+                var list = $("#listByOwner");
+                list.empty();
+                var data = response.data.list;
+                for (var i = 0 ; i < data.length ; i ++){
+                    list.append("            <li><span class='icon_span pos_book'></span><a href='list_info.html?id="+ data[i].book_id +"'>"+ data[i].book_name +"</a>\n" +
+                        "            <span class='right'><b><a style='color: red' onclick='deleteMyBook("+ data[i].book_id +")'>删除</a></b><time>"+ format(data[i].shelf_time) +"</time></span></li>");
+                }
+            }
+        });
+    }
+    
+    //显示我的评论
+    function showMyMessage() {
+        $.ajax({
+            type:"post",
+            url:"manage/message/showMe",
+            data:{
+                stuId:stu_id
+            },
+            dataType:"json",
+            success:function (response) {
+                if (response.status == 0){
+                    alert("您还没有评论！");
+                    location.reload();
+                }
+                var messages = response.data;
+                var list = $("#messageList");
+                list.empty();
+                for (var i = 0;i < messages.length;i ++){
+                    list.append("         <li>\n" +
+                        "            <p class='tit'><time>"+ format(messages[i].time) +"</time>在《<b>"+ messages[i].book_name +"</b>》<span><a href='javascript:;' onclick='deleteMsg("+ messages[i].mesid +")'>删除</a></span></p>\n" +
+                        "            <p class='con'>"+ messages[i].mescontent +"</p>\n" +
+                        "         </li>");
+                }
+            }
+        });
+    }
+
+    //删除评论
+    function deleteMsg(msgId) {
+        var flag = confirm("确认要删除这条评论？");
+        if (flag){
+            $.ajax({
+                type:"get",
+                url:"manage/message/delete",
+                data:{
+                    id:msgId
+                },
+                dataType:"json",
+                success:function (response) {
+                    alert(response.msg);
+                    location.reload();
+                }
+            });
+        } else {
+            location.reload();
+        }
+    }
+
+    //删除我上传的图书
+    function deleteMyBook(id) {
+        var flag = confirm("确认删除该图书？此操作不可逆");
+        if (flag){
+            $.ajax({
+                type:"get",
+                url:"manage/book/delete",
+                data:{
+                    id:id
+                },
+                dataType:"json",
+                success:function (response) {
+                    alert(response.msg);
+                    location.reload();
+                }
+            });
+        } else {
+            location.reload();
+        }
+    }
+    
+</script>
+<footer class="clear">
+    <p>读客图书是学习分享平台，如对本站有意见和建议请<a href="javascript:;">留言</a></p>
+    <p>本站所有信息仅用于学习交流，不用商业用途   Powered by 读客图书</p>
+</footer><!--底部结束-->
+</body>
+</html>

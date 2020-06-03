@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>login</title>
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<link rel="stylesheet" href="js/vendor/jgrowl/css/jquery.jgrowl.min.css">
+<!--必要样式-->
+<link rel="stylesheet" type="text/css" href="css/component.css" />
+<!--[if IE]>
+<script src="js/html5.js"></script>
+<![endif]-->
+<style>
+	input::-webkit-input-placeholder{
+		color:rgba(0, 0, 0, 0.726);
+	}
+	input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+		color:rgba(0, 0, 0, 0.726);
+	}
+	input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+		color:rgba(0, 0, 0, 0.726);
+	}
+	input:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+		color:rgba(0, 0, 0, 0.726);
+	}
+</style>
+</head>
+<body>
+		<div class="container demo-1">
+			<div class="content">
+				<div id="large-header" class="large-header">
+					<canvas id="demo-canvas"></canvas>
+					<div class="logo_box">
+						<h3>注册用户</h3>
+						<form action="#" name="f" method="post">
+							<div class="input_outer">
+								<span class="u_user"></span>
+								<input id="email" name="email" class="text" style="color: #000000 !important" type="text" placeholder="请输入注册邮箱">
+							</div>
+							<div class="input_outer">
+								<span class="u_user"></span>
+								<input id="name" name="name" class="text" style="color: #000000 !important" type="text" placeholder="请输入用户名">
+							</div>
+							<div class="input_outer">
+								<span class="us_uer"></span>
+								<input id="password1" name="logpass1" class="text" style="color: #000000 !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
+							</div>
+							<div class="input_outer">
+								<span class="us_uer"></span>
+								<input id="password2" name="logpass2" class="text" style="color: #000000 !important; position:absolute; z-index:100;"value="" type="password" placeholder="请再次输入密码">
+							</div>
+							<a class="myButtom" onclick="register()" href="javascript:;"style="color: #FFFFFF">注册</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div><!-- /container -->
+		<script src="js/TweenLite.min.js"></script>
+		<script src="js/EasePack.min.js"></script>
+		<script src="js/jquery.js"></script>
+		<script src="js/rAF.js"></script>
+		<script src="js/demo-1.js"></script>
+		<script src="js/vendor/jgrowl/jquery.jgrowl.min.js"></script>
+		<script src="js/Longin.js"></script>
+		<script>
+			function register(){
+				var username = document.getElementById("name").value;
+				var email = document.getElementById("email").value;
+				var regEmail = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+				var password1 = document.getElementById("password1").value;
+				var regPassword = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+				var password2 = document.getElementById("password2").value;
+				if (email == ""){
+					$.jGrowl("邮箱号不能为空！", { header: '提醒' });
+				}else if(!regEmail.test(email)){
+					$.jGrowl("邮箱号格式不正确", { header: '提醒' });
+				}else if(username==""){
+					$.jGrowl("用户名不能为空！", { header: '提醒' });
+				}else if(password1=="" || password2 == ""){
+					$.jGrowl("密码不能为空！", { header: '提醒' });
+				}else if(!regPassword.test(password1)){
+					$.jGrowl("密码格式不正确，密码应至少包含数字和字母，长度在6-20位", { header: '提醒' });
+				}else if (password1 == password2) {
+					ajaxRegister();
+				}else {
+					$.jGrowl("两次密码输入不一致！", { header: '提醒' });
+				}
+			}
+			function ajaxRegister() {
+				var username = document.getElementById("name").value;
+				var email = document.getElementById("email").value;
+				var password1 = document.getElementById("password1").value;
+				$.ajax({
+					type:"post",
+					url:"../manage/student/register",
+					data:{
+						stu_name : username,
+						stu_email : email,
+						stu_pwd : password1
+					},
+					dataType:"json",
+					success:function (response) {
+						if (response.status == 1) {
+							$.jGrowl(response.msg, { header: '提醒' });
+							location.replace("index.html");
+						}else {
+							$.jGrowl(response.msg, { header: '提醒' });
+						}
+
+
+					}
+				});
+			}
+		</script>
+		<div style="text-align:center;">
+</div>
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Home</title>
+<!-- Custom Theme files -->
+<link href="css/styleA.css" rel="stylesheet" type="text/css" media="all"/>
+<!-- Custom Theme files -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--js-->
+    <script src="js/jquery-1.8.2.min.js"></script>
+	<script src="js/loginSession.js"></script>
+</head>
+<body>
+<div class="login">
+	<h2>管理员登录 </h2>
+	<div class="login-top">
+		<h1>登录</h1>
+		<form>
+			<input id="name" type="text" value="用户名" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'User Id';}">
+			<input id="password" type="password" value="密码" onFocus="this.value = '';" onBlur="if (this.value == '') {this.value = 'password';}">
+	    </form>
+	    <div class="forgot">
+	    	<a href="#">忘记密码？</a>
+	    	<input id="login" type="submit" value="登录" >
+	    </div>
+	</div>
+	<div class="login-bottom">
+		<h5><a href="login/index.html">返回普通用户登录</a> </h5>
+	</div>
+</div>	
+<div class="copyright">
+	<p>版权所有</p>
+</div>
+<script type="text/javascript">
+    $("#login").click(function () {
+        $.ajax({
+            type:"post",
+            url:"manage/admin/login",
+            data:{
+                name:$("#name").val(),
+                password:$("#password").val()
+            },
+			dataType:"json",
+            //回调方法
+            success:function (response) {
+                if (response.status == 1){
+					window.location.replace("adminIndex.html");
+				}else {
+                	alert(response.msg);
+                	$("#name").val("");
+                	$("#password").val("");
+				}
+            }
+        })
+    })
+</script>
+</body>
+</html>

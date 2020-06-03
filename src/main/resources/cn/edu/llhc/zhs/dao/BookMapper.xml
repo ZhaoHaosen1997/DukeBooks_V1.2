@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.llhc.zhs.dao.BookMapper">
+    <!-- 配置查询所有 -->
+    <select id="findAllBook" resultType="cn.edu.llhc.zhs.domain.Book"><!-- resultType:告诉 mybatis 要将结果封装在哪里 -->
+        select * from t_book where is_delete = 1
+    </select>
+
+    <select id="findAllBookDesc" resultType="cn.edu.llhc.zhs.domain.Book">
+        select * from t_book where is_delete = 1 order by book_id desc
+    </select>
+
+    <select id="findBookByType" resultType="cn.edu.llhc.zhs.domain.Book" parameterType="int">
+        select * from t_book where book_type_id = #{value} and is_delete = 1
+    </select>
+
+    <select id="findBookByNameOrAuthor" resultType="cn.edu.llhc.zhs.domain.Book" parameterType="String">
+        select * from t_book where concat(book_name,book_author) like concat('%',#{value},'%') and is_delete = 1
+    </select>
+
+    <select id="findBookById" resultType="cn.edu.llhc.zhs.domain.Book" parameterType="int">
+        select * from t_book where book_id = #{value} and is_delete = 1
+    </select>
+
+    <insert id="uploadBook" parameterType="cn.edu.llhc.zhs.domain.Book">
+        INSERT INTO t_book (
+        book_name,
+        book_type_id,
+        book_author,
+        book_pub,
+        shelf_time,
+        price,
+        book_description,
+        book_owner_id,
+        book_picture,
+        ebook_url
+    )
+    VALUES
+        (
+            #{book_name},
+            #{book_type_id},
+            #{book_author},
+            #{book_pub},
+            #{shelf_time},
+            #{price},
+            #{book_description},
+            #{book_owner_id},
+            #{book_picture},
+            #{ebook_url}
+        )
+    </insert>
+
+    <select id="findBookByOwner" resultType="cn.edu.llhc.zhs.domain.Book" parameterType="int">
+        select * from t_book where book_owner_id = #{value}
+    </select>
+
+    <select id="findAllBookAdmin" resultType="map">
+        SELECT
+            t_book.*, t_type.type_name
+        FROM
+            t_book,
+            t_type
+        WHERE
+            book_type_id = type_id
+        order by book_id desc
+    </select>
+
+    <update id="changeToUp" parameterType="int">
+        UPDATE t_book
+        SET is_delete = 1
+        WHERE
+            book_id = #{value}
+    </update>
+
+    <update id="changeToDown" parameterType="int">
+        UPDATE t_book
+        SET is_delete = 0
+        WHERE
+            book_id = #{value}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from t_book where book_id = #{value}
+    </delete>
+
+
+</mapper>

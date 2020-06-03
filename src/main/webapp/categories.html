@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<title>读客图书后台管理</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.css" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/toastr.css" />
+<link rel="stylesheet" href="css/fullcalendar.css" />
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.knob.js"></script>
+<!--    <script src="http://d3js.org/d3.v3.min.js"></script> -->
+<script src="js/jquery.sparkline.min.js"></script>
+<script src="js/toastr.js"></script>
+<script src="js/jquery.tablesorter.min.js"></script>
+<script src="js/jquery.peity.min.js"></script>
+<script src="js/fullcalendar.min.js"></script>
+<script src="js/gcal.js"></script>
+<script src="js/setup.js"></script>
+</head>
+<body>
+	<!-- header部分 -->
+	<div id="in-nav">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<ul class="pull-right" id="loginStatus">
+						<!-- 登录判断 -->
+						<script src="js/loginSession.js"></script>
+						<script>
+							getAdmin();
+						</script>
+					</ul>
+					<a id="logo" href="index.html">
+						<h4>
+							读客图书后台<strong>管理</strong>
+						</h4>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="in-sub-nav">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<ul>
+						<li><a href="adminIndex.html" ><i
+								class="batch home"></i><br />主页</a></li>
+						<li><span class="label label-important pull-right"></span><a
+							href="admins.html"><i class="batch stream"></i><br />管理员列表</a></li>
+						<li><a href="users.html"><i class="batch users"></i><br />用户列表</a></li>
+						<li><a href="categories.html" class="active"><i class="batch forms"></i><br />类别列表</a></li>
+						<li><a href="products.html"><i class="batch quill"></i><br />图书列表</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page">
+		<div class="page-container">
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+						<h4 class="header">类别列表</h4>
+						<table class="table table-striped sortable">
+							<thead>
+								<tr>
+									<th>类别 ID</th>
+									<th>类别名</th>
+									<th>上一级类别ID</th>
+									<th>是否为叶子节点</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="tb">
+
+							</tbody>
+
+						</table>
+						<div class="pagination pagination-centered">
+							<ul id="pages">
+								<!-- <li class="disabled"><a href="#">&laquo;</a></li>
+								<li class="active"><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">5</a></li>
+								<li><a href="#">&raquo;</a></li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<p class="pull-right">版权所有&nbsp;&nbsp;&nbsp;可以翻版</p>
+					<p>&copy; Copyright 2018 Somnus</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+<script src="js/d3-setup.js"></script>
+<script>
+	protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+	address = protocol + window.location.host + window.location.pathname
+			+ '/ws';
+	socket = new WebSocket(address);
+	socket.onmessage = function(msg) {
+		msg.data == 'reload' && window.location.reload()
+	}
+</script>
+<script type="text/javascript">
+	var currentPage;
+	//封装分页方法
+	function page(pn){
+		currentPage = pn;
+		$.ajax({
+			type:"get",
+			url:"manage/type/list",
+			data:{
+				pageNum:pn,
+				pageSize:10
+			},
+			dataType:"json",
+			success:function (response) {
+				var data = response.data.list;
+				$("#tb").empty();
+				for (var i = 0 ; i < data.length ; i ++){
+					var tableRow = $("<tr></tr>");
+					tableRow.append("<td>" + data[i].type_id + "</td>");
+					tableRow.append("<td>" + data[i].type_name + "</td>");
+					tableRow.append("<td>" + data[i].father_type + "</td>");
+					if (data[i].is_leaf == 1){
+						tableRow.append("<td>是</td>");
+						tableRow.append("<td><div class='btn-group'><button class='btn'>操作</button><button data-toggle='dropdown' class='btn dropdown-toggle'><span class='caret'></span></button><ul class='dropdown-menu'><li> <a onclick='deleteType("+ data[i].type_id +")' href='#'>删除</a></li></ul></div></td>");
+					} else {
+						tableRow.append("<td>否</td>");
+						tableRow.append("<td><div class='btn-group'><button class='btn'>操作</button><button data-toggle='dropdown' class='btn dropdown-toggle'><span class='caret'></span></button><ul class='dropdown-menu'><li><a href='add_category_child.html?pId="
+								+ data[i].type_id
+								+ "'>添加子类别</a> </li></ul></div></td>");
+					}
+
+					$("#tb").append(tableRow);
+				}
+				//分页导航
+				var nums = response.data.navigatepageNums;
+				$("#pages").empty();
+				if (currentPage == response.data.firstPage){
+					$("#pages").append("<li class='disabled'><a href='#'>&laquo;</a></li>")
+				} else {
+					$("#pages").append("<li onclick='page("+ (currentPage-1) +")'><a href='#'>&laquo;</a></li>")
+				}
+
+				for (var i = 0 ; i < nums.length ; i ++){
+					$("#pages").append("<li onclick='page(" + nums[i] + ")'><a>" + nums[i] + "</a></li>");
+				}
+				if (currentPage == response.data.lastPage){
+					$("#pages").append("<li class='disabled'><a href='#'>&raquo;</a></li>")
+				} else {
+					$("#pages").append("<li onclick='page("+ (currentPage+1) +")'><a href='#'>&raquo;</a></li>")
+				}
+			}
+		});
+	}
+	page(1);
+
+	//删除方法
+	function deleteType(typeId) {
+		$.ajax({
+			type:"get",
+			url:"manage/type/deleteType",
+			data:{
+				id:typeId
+			},
+			dataType:"json",
+			success:function (response) {
+				alert(response.msg);
+				location.reload();
+			}
+		});
+	}
+
+	
+	
+
+</script>
+</html>

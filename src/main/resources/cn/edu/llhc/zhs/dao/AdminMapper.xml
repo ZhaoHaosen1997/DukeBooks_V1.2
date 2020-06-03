@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.llhc.zhs.dao.AdminMapper">
+    <!-- 配置查询所有 -->
+    <select id="findAllAdmin" resultType="cn.edu.llhc.zhs.domain.Admin"><!-- resultType:告诉 mybatis 要将结果封装在哪里 -->
+        select * from t_admin
+    </select>
+
+    <select id="isAdminExist" resultType="int" parameterType="String">
+        select count(1) from t_admin where admin_name = #{value}
+    </select>
+
+    <select id="selectAdminByNameAndPwd" parameterType="map" resultType="cn.edu.llhc.zhs.domain.Admin">
+        select admin_id,admin_name,admin_password from t_admin where admin_name = #{name} and admin_password = #{password}
+    </select>
+
+    <insert id="insert" parameterType="String">
+        insert into t_admin (admin_name,admin_password) values (#{name},#{password});
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from t_admin where admin_id = #{value}
+    </delete>
+</mapper>

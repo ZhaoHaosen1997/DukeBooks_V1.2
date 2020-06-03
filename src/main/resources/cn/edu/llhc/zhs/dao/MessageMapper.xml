@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.llhc.zhs.dao.MessageMapper">
+    <!-- 根据书籍id查询 -->
+    <select id="findMessageByBookId" resultType="java.util.Map" parameterType="Integer">
+    SELECT
+        t1.*, t2.photo,
+        t2.stu_name
+    FROM
+        t_message t1,
+        t_student t2
+    WHERE
+        t1.stu_id = t2.stu_id and t1.book_id = #{value}
+    </select>
+
+    <!-- 根据消息id查询 -->
+    <select id="pageQueryMessageByMessageId" resultType="java.util.Map" parameterType="Integer">
+    SELECT
+        t1.*, t2.photo,
+        t2.stu_name
+    FROM
+        t_message t1,
+        t_student t2
+    WHERE
+        t1.stu_id = t2.stu_id and t1.reply = #{value}
+    </select>
+
+    <insert id="reply" parameterType="cn.edu.llhc.zhs.domain.Message">
+        INSERT INTO t_message (
+            stu_id,
+            time,
+            mescontent,
+            reply
+        )
+        VALUES
+            (#{stu_id} ,#{time}, #{mescontent}, #{reply})
+    </insert>
+
+    <insert id="replyBooks" parameterType="cn.edu.llhc.zhs.domain.Message">
+         INSERT INTO t_message (
+            stu_id,
+            time,
+            mescontent,
+            book_id
+        )
+        VALUES
+            (#{stu_id} ,#{time}, #{mescontent}, #{book_id})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete from t_message where mesid = #{value}
+    </delete>
+
+    <select id="findMessageByStuId" resultType="java.util.Map" parameterType="Integer">
+        SELECT
+            msg.mesid,
+            msg.time,
+            msg.mescontent,
+            book.book_name
+        FROM
+            t_message msg,
+            t_book book
+        WHERE
+            msg.book_id = book.book_id
+        AND msg.stu_id = #{value}
+    </select>
+</mapper>

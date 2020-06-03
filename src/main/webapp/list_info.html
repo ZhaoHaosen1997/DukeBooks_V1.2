@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>书籍阅读简介页--目录页</title>
+<link  href="css/css.css" rel="stylesheet" type="text/css">
+<link  href="css/arcticle2.css" rel="stylesheet" type="text/css">
+<script src="js/jquery.js"></script>
+<script src="js/js.js"></script>
+<script src="js/list.js"></script>
+<script src="js/comment.js"></script>
+<script src="js/myJs.js"></script>
+
+
+</head>
+
+<body>
+<header class="clear">
+    <img src="img/logo.jpg" >
+    <div class="logo">
+        <h1>读客图书</h1>
+        <div class="clear"></div>
+        <p>读客共享书，共享你的阅读</p>
+    </div>
+    <div class="search left">
+        <input id="keyword" name="keyword" type="text" value="" placeholder="请输入书名或作者名称">
+        <input id="search" type="submit" value="搜索">
+    </div>
+    <div class="reg" id="loginStatus">
+        <!-- 登录判断 -->
+        <script src="js/loginSession.js"></script>
+        <script>
+            var thisUser = getStudent();
+        </script>
+    </div>
+</header>
+<!--头部结束-->
+
+<nav class="clear">
+    <ul class="nav_1 clear">
+        <div id="banner" class="active"></div>
+        <li><a id="index" href="index.html">首页</a></li>
+        <li><a href="index_article.html">文学</a>
+            <ul id="articleList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_sociology.html">社会学</a>
+            <ul id="sociologyList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_psychology.html">心理学</a>
+            <ul id="psychologyList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_ecnomics.html">经济学</a>
+            <ul id="economicsList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_science.html">自然科学</a>
+            <ul id="scienceList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_history.html">历史</a>
+            <ul id="historyList" class="clear">
+
+            </ul>
+        </li>
+        <li><a href="index_other.html">其他</a>
+            <ul id="otherList" class="clear">
+
+            </ul>
+        </li>
+    </ul>
+</nav><!--导航结束-->
+
+<div class="box clear">
+ <div class="list">
+  <div class="pos">
+     当前位置：<a href="index.html">首页</a> > <a href="javascript:;" id="thisClass"></a> > <span id="bookName">name</span>
+  </div>
+  <h3 id="bookName2">文化苦旅</h3>
+
+ <ul class="tab clear">
+     <li class="active"><a href="#">简介</a></li>
+ </ul>
+  <div class="tab_1">
+    <div class="info clear">
+     <img src="img/album.jpg" class="left" style="margin-right:20px;width:150px;" id="bookPic"> <p class="left" style="width:580px; overflow:hidden;" id="bookDesc">《文化苦旅》一书于1992年首次出版，是余秋雨先生1980年代在海内外讲学和考察途中写下的作品，是他的第一部文化散文集。
+     全书主要包括两部分，一部分为历史、文化散文，另一部分为回忆散文。甫一面世，该书就以文采飞扬、知识丰厚、见解独到而备受万千读者喜爱。
+     由此开创“历史大散文”一代文风，令世人重拾中华文化价值。他的散文别具一格，见常人所未见，思常人所未思，善于在美妙的文字中一
+     步步将读者带入历史文化长河，启迪哲思，引发情致，具有极高的审美价值和史学、文化价值。书中多篇文章后入选中学教材修改篇幅过半！</p>
+     </div>
+     <div class="fx clear">
+         <div class="bdsharebuttonbox right"><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_more" data-cmd="more"></a></div>
+             <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+         </script>
+         <p class="dsf">
+           <a href="#"  style="width:113px" id="download"><span  class="icon down"></span>下载 </a>
+             <a href="javascript:;" class="sc_c" onclick="replyBook()"><span  class="icon sc"></span>评论<b></b></a>
+         <b> 分享到:</b>
+         </p>
+     </div>
+     <ul class="clear info_1">
+     <p>基本信息</p>
+     <li id="bookAuthor"><span>作 &nbsp; &nbsp; &nbsp; 者：</span></li>
+     <li id="bookPub"><span>出 &nbsp;版 &nbsp;社：</span></li>
+     <li><span>分 &nbsp; &nbsp; &nbsp; 类：</span><span id="thisType"></span></li>
+     <li id="bookPrice"><span>价 &nbsp; &nbsp; &nbsp; 格：</span></li>
+     </ul>
+  </div><!--简介介绍-->
+  
+ <div class="tab_1 ">
+   <div class="tit">评论</div>
+  </div>
+  <div class="comment">
+   <ul class="com_con clear" id="messageList">
+   </ul>
+</div><!--评论结束-->
+
+ 
+</div><!--右边结束-->
+ <div class="list2">
+    <div class="one">
+        <p>新书上架</p>
+        <div class="notice">
+            <ul id="newList">
+            <li><a href="javascrip:;">文化苦旅</a></li>
+           </ul>
+        </div>
+    </div><!--新书上架结束-->
+     </div><!--左边结束-->
+</div><!--中间box 结束-->
+
+<script>
+    $(function () {
+
+        getChild(1,"#articleList");
+        getChild(2,"#sociologyList");
+        getChild(3,"#psychologyList");
+        getChild(4,"#economicsList");
+        getChild(5,"#scienceList");
+        getChild(6,"#historyList");
+        getChild(7,"#otherList");
+        //查询子类别
+        getChild(1,"#child");
+    });
+
+    var currentPage;
+
+    //封装查询方法
+    $("#search").click(function () {
+        var keyVal = $("#keyword").val();
+        if (null == keyVal || "" == keyVal || keyVal.length == 0){
+            alert("您还没有输入关键字");
+        }else {
+            //encodeURI:给 uri 编码
+            var uri = encodeURI("index_search.html?keywords=" + keyVal);
+            location.href = uri;
+        }
+    });
+
+    //侧边最新上架
+    $(function () {
+        $.ajax({
+            type:"get",
+            url:"manage/book/listDesc",
+            data:{
+                pageSize:6
+            },
+            dataType:"json",
+            success:function (response) {
+                var data = response.data.list;
+                var bookList = $("#newList");
+                bookList.empty();
+                for (var i = 0 ; i < data.length ; i ++){
+                    bookList.append("<li><a href='list_info.html?id="+ data[i].book_id +"'>"+ data[i].book_name +"</a></li>");
+                }
+            }
+        });
+    });
+    //读取图书
+    var href = location.href;
+    var id = href.split("?")[1].split("=")[1];
+
+    var thisBook = showBook(id);
+
+    //读取图书评论
+    var currentPage;
+    showMessage(id,1,thisUser);
+
+    //获取当前用户积分
+
+    function getYourMoney(){
+        var youMoney;
+        $.ajax({
+            type:"post",
+            url:"manage/student/getStudent",
+            data:{
+                stu_id:thisUser.stu_id
+            },
+            dataType:"json",
+            async: false,
+            success:function (response) {
+                var data = response.data;
+                youMoney = data.stu_money;
+            }
+        });
+        return youMoney;
+    }
+
+
+    //下载文件
+    $("#download").click(function () {
+        var price = thisBook.price;
+        var youMoney = getYourMoney();
+        if (thisUser == null){
+            alert("请先登录！");
+
+        } else {
+            var flag = confirm("您确认要下载这本图书？这将花费您"+price+"点积分");
+            if (flag){
+                if (price <= youMoney){
+                    window.location.href="manage/book/download?bookId="+id;
+                    $.ajax({
+                        type:"get",
+                        url:"manage/student/updateMoney",
+                        data:{
+                            stu_money:youMoney-price,
+                            stu_id:thisUser.stu_id
+                        },
+                        dataType:"json",
+                        success:function (response) {
+                            alert("图书已下载，您的剩余积分为"+response.data);
+                            location.replace(location.href);
+                        }
+                    });
+                } else {
+                    alert("您的积分不足以下载该图书，请充值！");
+                }
+            }
+        }
+    });
+
+    //回复按钮
+    function replyBook() {
+        var stuId = thisUser.stu_id;
+        if (stuId == null ||stuId == undefined){
+            alert("请先登录！");
+            return;
+        } 
+        var mescontent = prompt("请输入评论内容");
+        if (mescontent == null || mescontent == ""){
+            alert("请输入文字！");
+            return;
+        }
+
+        $.ajax({
+            type:"get",
+            url:"manage/message/replyBook",
+            data:{
+                stuId:stuId,
+                mescontent:mescontent,
+                bookId:id
+            },
+            dataType:"json",
+            success:function (response) {
+                alert(response.msg);
+                location.reload();
+            }
+        });
+    }
+
+    //消息回复
+    function reply(reply,msgId) {
+        var string = "#message"+msgId;
+        var mescontent = $(string).val();
+        $.ajax({
+            type:"get",
+            url:"manage/message/reply",
+            data:{
+                stuId:stuId,
+                mescontent:mescontent,
+                reply:reply
+            },
+            dataType:"json",
+            success:function (response) {
+                alert(response.msg);
+                location.reload();
+            }
+        });
+    }
+
+    //删除评论
+    function deleteMsg(msgId) {
+        var flag = confirm("确认要删除这条评论？");
+        if (flag){
+            $.ajax({
+                type:"get",
+                url:"manage/message/delete",
+                data:{
+                    id:msgId
+                },
+                dataType:"json",
+                success:function (response) {
+                    alert(response.msg);
+                    location.reload();
+                }
+            });
+        } else {
+            location.reload();
+        }
+    }
+    
+
+</script>
+<footer class="clear">
+    <p>阅读天地是学习分享平台，如对本站有意见和建议请<a href="javascript:;">留言</a></p>
+    <p>本站所有信息仅用于学习交流，不用商业用途   Powered by 阅读天地</p>
+</footer><!--底部结束-->
+</body>
+</html>
